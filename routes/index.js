@@ -4,15 +4,16 @@ const router = express.Router();
 // Controller
 const home = require("../controllers/homeController");
 const authRouter = require("./auth");
+const cartRouter = require("./cart");
 
 // Login/register page
 router.use(authRouter);
 
-// Catalog page
-router.get("/category", home.category);
+// Cart page
+router.use(cartRouter);
 
 // Catalog page
-router.get("/cart", home.cart);
+router.get("/cata-log", home.category);
 
 /* GET home page. */
 router.get("/", home.index);

@@ -1,23 +1,36 @@
 const { Sequelize, DataTypes } = require("sequelize");
 
-const sequelize = new Sequelize();
+const User = require("./userModel");
 
-const Payment = sequelize.define("payment", {
-  id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    autoIncrement: true,
-    primaryKey: true,
+const sequelize = require("./DBConfig");
+
+const Payment = sequelize.define(
+  "payment",
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    paymentDate: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      defaultValue: Date.now(),
+    },
+    amount: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
   },
-  paymentDate: {
-    type: DataTypes.DATE,
-    allowNull: true,
-    defaultValue: Date.now(),
-  },
-  amount: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
+  {
+    timestamps: false,
+  }
+);
+
+User.hasMany(Payment);
+Payment.belongsTo(User, {
+  foreignKey: "userId",
 });
 
 module.exports = Payment;
