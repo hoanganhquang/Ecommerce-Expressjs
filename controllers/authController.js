@@ -3,9 +3,12 @@ const crypto = require("crypto");
 const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const catchAsync = require("../utils/catchAsync");
+const { promisify } = require("util");
 
 const signToken = (id) => {
-  return jwt.sign();
+  return jwt.sign({ id: id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRES_IN,
+  });
 };
 
 const createSendToken = (user, req, res) => {
@@ -24,8 +27,7 @@ const createSendToken = (user, req, res) => {
   user.password = undefined;
 };
 
-exports.signUp = catchAsync(async (req, res) => {
-  console.log(req.body);
+exports.signUp = catchAsync(async (req, res, next) => {
   const password = await bcrypt.hash(req.body.password, 12);
 
   req.body.password = password;
@@ -36,26 +38,77 @@ exports.signUp = catchAsync(async (req, res) => {
 
   createSendToken(newUser, req, res);
 
-  req.locals.user = newUser;
+  res.locals.user = newUser;
 
   res.redirect("/dashboard");
 });
 
-exports.login = catchAsync(async (req, res) => {
-  const user = await User.findAll({
+exports.login = catchAsync(async (req, res, next) => {
+  const user = await User.findOne({
     where: {
       email: req.body.email,
     },
+    raw: true,
   });
 
-  await bcrypt.compare(req.body.password, user.password);
+  const match = await bcrypt.compare(req.body.password, user.password);
 
-  createSendToken(user, req, res);
+  if (match) {
+    createSendToken(user, req, res);
 
-  req.locals.user = user;
+    res.locals.user = user;
 
-  res.redirect("/dashboard");
+    res.redirect("/dashboard");
+  } else {
+    res.redirect("/auth");
+  }
 });
+
+exports.isLoggedIn = async (req, res, next) => {
+  try {
+    let token = req.cookies.jwt;
+
+    // decode token in order to check payload -> id
+    const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+
+    const currentUser = await User.findByPk(decoded.id, {
+      raw: true,
+    });
+
+    res.locals.user = currentUser;
+
+    req.user = currentUser;
+    next();
+  } catch (error) {
+    next();
+  }
+};
+
+exports.protect = catchAsync(async (req, res, next) => {
+  let token;
+  // check token in header
+  if (req.cookies.jwt) {
+    token = req.cookies.jwt;
+  }
+
+  // decode token in order to check payload -> id
+  const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+
+  const user = await User.findByPk(decoded.id);
+
+  req.user = user;
+  res.locals.user = req.user;
+  next();
+});
+
+exports.logout = (req, res) => {
+  res.cookie("jwt", "loggedout", {
+    expires: new Date(Date.now() + 10 * 1000),
+    httpOnly: true,
+  });
+
+  res.redirect("/");
+};
 
 exports.auth = (req, res) => {
   res.render("home/auth");

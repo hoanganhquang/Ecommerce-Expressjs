@@ -36,20 +36,23 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {{#each allProducts}}
                                     <tr>
                                         <td><img src="assets/images/ecommerce/1.png" width="48" alt="Product img"></td>
-                                        <td><h5>Simple Black Clock</h5></td>
-                                        <td><span class="text-muted">randomised words even slightly believable</span></td>
-                                        <td><span class="col-green">In Stock</span></td>
-                                        <td>10</td>
-                                        <td>10</td>
-                                        <td>Laptop</td>
+                                        <td><h5>{{this.productName}}</h5></td>
+                                        <td><span class="text-muted">{{this.productDescription}}</span></td>
+                                        <td><span class="col-green">{{this.quantityInStock}}</span></td>
+                                        <td>{{this.buyPrice}}</td>
+                                        <td>{{this.productPrice}}</td>
+                                        {{#with this.category}}
+                                        <td>{{name}}</td>
+                                        {{/with}}
                                         <td>
                                             <a href="javascript:void(0);" class="btn btn-default waves-effect waves-float btn-sm waves-green"><i class="zmdi zmdi-edit"></i></a>
                                             <a href="javascript:void(0);" class="btn btn-default waves-effect waves-float btn-sm waves-red"><i class="zmdi zmdi-delete"></i></a>
                                         </td>
                                     </tr>
-                                    
+                                    {{/each}}
                                 </tbody>
                             </table>
                         </div>

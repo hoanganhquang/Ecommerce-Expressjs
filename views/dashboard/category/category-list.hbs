@@ -32,16 +32,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {{#each allCategory}}
                                     <tr>
                                         <td><img src="assets/images/ecommerce/1.png" width="48" alt="Product img"></td>
-                                        <td><h5>Simple Black Clock</h5></td>
-                                        <td><span class="text-muted">randomised words even slightly believable</span></td>
+                                        <td><h5>{{this.name}}</h5></td>
+                                        <td><span class="text-muted">{{this.textDescription}}</span></td>
                                         <td>
                                             <a href="javascript:void(0);" class="btn btn-default waves-effect waves-float btn-sm waves-green"><i class="zmdi zmdi-edit"></i></a>
                                             <a href="javascript:void(0);" class="btn btn-default waves-effect waves-float btn-sm waves-red"><i class="zmdi zmdi-delete"></i></a>
                                         </td>
                                     </tr>
-                                    
+                                    {{/each}}
                                 </tbody>
                             </table>
                         </div>

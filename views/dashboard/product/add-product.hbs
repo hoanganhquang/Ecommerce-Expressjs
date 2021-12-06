@@ -27,7 +27,7 @@
                             <h2><strong>Thêm</strong> sản phẩm</h2>
                         </div>
                         <div class="body">
-                            <form id="form_validation" method="POST" enctype="multipart/form-data">
+                            <form id="form_validation" method="POST" action="/products/add" enctype="multipart/form-data">
                                 <div class="form-group form-float col-md-6">
                                     <input type="text" class="form-control" placeholder="Tên sản phẩm" name="productName" required>
                                 </div>
@@ -41,13 +41,11 @@
                                     <input type="number" class="form-control" placeholder="Giá sản phẩm" name="productPrice" required>
                                 </div>
                                 <div class="form-group form-float col-sm-6">
-                                    <select class="form-control show-tick">
+                                    <select name="categoryId" class="form-control show-tick">
                                         <option value="">-- Please select --</option>
-                                        <option value="10">10</option>
-                                        <option value="20">20</option>
-                                        <option value="30">30</option>
-                                        <option value="40">40</option>
-                                        <option value="50">50</option>
+                                        {{#each allCategory}}
+                                        <option value="{{this.id}}">{{this.name}}</option>
+                                        {{/each}}
                                     </select>
                                 </div>
                                 <div class="form-group form-float col-md-6">

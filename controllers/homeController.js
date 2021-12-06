@@ -1,16 +1,12 @@
 const Category = require("../models/categoryModel");
+const catchAsync = require("../utils/catchAsync");
 
-exports.index = async (req, res) => {
-  try {
-    const allCategory = await Category.findAll();
-    console.log(allCategory);
-    res.render("home/index", {
-      allCategory,
-    });
-  } catch (error) {
-    console.log(error);
-  }
-};
+exports.index = catchAsync(async (req, res, next) => {
+  const allCategory = await Category.findAll();
+  res.render("home/index", {
+    allCategory,
+  });
+});
 
 exports.category = (req, res) => {
   res.render("home/category");

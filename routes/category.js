@@ -2,9 +2,11 @@ const express = require("express");
 const router = express.Router();
 
 const category = require("../controllers/categoryController");
+const auth = require("../controllers/authController");
 
+router.use(auth.protect);
 // add category
-router.get("/add", category.addCategory);
+router.route("/add").get(category.addCategory).post(category.addCategory);
 
 // edit category
 router.get("/edit/:id", category.editCategory);

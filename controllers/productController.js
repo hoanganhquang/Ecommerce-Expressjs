@@ -1,10 +1,30 @@
-exports.productList = (req, res) => {
-  res.render("dashboard/product/product-list");
-};
+const Product = require("../models/productModel");
+const Category = require("../models/categoryModel");
+const catchAsync = require("../utils/catchAsync");
 
-exports.addProduct = (req, res) => {
-  res.render("dashboard/product/add-product");
-};
+exports.productList = catchAsync(async (req, res) => {
+  const allProducts = await Product.findAll({
+    include: {
+      model: Category,
+      attributes: ["name"],
+    },
+  });
+
+  res.render("dashboard/product/product-list", { allProducts });
+});
+
+exports.addProduct = catchAsync(async (req, res) => {
+  const allCategory = await Category.findAll();
+
+  if (req.method == "POST") {
+    await Product.create(req.body);
+    res.redirect("back");
+  }
+
+  res.render("dashboard/product/add-product", {
+    allCategory,
+  });
+});
 
 exports.editProduct = (req, res) => {
   res.render("dashboard/product/edit-product");

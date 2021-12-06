@@ -85,6 +85,14 @@
                         </a>
                     </li>
 
+                    {{#if user}}
+                    <li class="topauth">
+                        <a href="/logout">
+                            <i class="fa fa-lock"></i>
+                            <span class="shop-menu-ttl">Logout</span>
+                        </a>
+                    </li>
+                    {{else}}
                     <li class="topauth">
                         <a href="auth">
                             <i class="fa fa-lock"></i>
@@ -94,6 +102,8 @@
                             <span class="shop-menu-ttl">Login</span>
                         </a>
                     </li>
+                    {{/if}}
+                    
 
                     <li>
                         <div class="h-cart">

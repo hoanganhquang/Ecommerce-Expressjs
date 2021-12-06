@@ -4,7 +4,7 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const hbs = require("hbs");
-
+const bodyParser = require("body-parser");
 // Router
 const homeRouter = require("./routes/index");
 const productRouter = require("./routes/product");
@@ -14,20 +14,50 @@ const orderRouter = require("./routes/order");
 const paymentRouter = require("./routes/payment");
 const voucherRouter = require("./routes/voucher");
 const dbRouter = require("./routes/dashboard");
+const busboyBodyParser = require("busboy-body-parser");
 
 const app = express();
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 hbs.registerPartials(path.join(__dirname, "views/partials"));
+hbs.registerHelper("when", function (operand_1, operator, operand_2, options) {
+  const operators = {
+    eq: function (l, r) {
+      return l == r;
+    },
+    noteq: function (l, r) {
+      return l != r;
+    },
+    gt: function (l, r) {
+      return Number(l) > Number(r);
+    },
+    or: function (l, r) {
+      return l || r;
+    },
+    and: function (l, r) {
+      return l && r;
+    },
+    "%": function (l, r) {
+      return l % r === 0;
+    },
+  };
+
+  const result = operators[operator](operand_1, operand_2);
+
+  if (result) return options.fn(this);
+  else return options.inverse(this);
+});
 app.set("view engine", "hbs");
 
 app.use(logger("dev"));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(busboyBodyParser());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+app.use("/", homeRouter);
 app.use("/users", userRouter);
 app.use("/orders", orderRouter);
 app.use("/payments", paymentRouter);
@@ -35,7 +65,6 @@ app.use("/vouchers", voucherRouter);
 app.use("/category", categoryRouter);
 app.use("/products", productRouter);
 app.use("/dashboard", dbRouter);
-app.use("/", homeRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
