@@ -9,7 +9,7 @@ router.use(auth.protect);
 router.route("/add").get(category.addCategory).post(category.addCategory);
 
 // edit category
-router.get("/edit/:id", category.editCategory);
+router.get("/:id", category.editCategory);
 
 // category list
 router.get("/", category.categoryList);

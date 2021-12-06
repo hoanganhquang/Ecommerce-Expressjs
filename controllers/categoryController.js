@@ -16,5 +16,6 @@ exports.addCategory = catchAsync(async (req, res) => {
 });
 
 exports.editCategory = (req, res) => {
+  // if(req.method == "")
   res.render("dashboard/category/edit-category");
 };
