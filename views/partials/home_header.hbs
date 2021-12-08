@@ -521,31 +521,13 @@
                             Danh mục <i class="fa fa-angle-down"></i>
                         </a>
                         <ul class="sub-menu">
+                            {{#each cataLog}}
                             <li>
-                                <a href="cata-log">
-                                    Laptop
+                                <a href="/cata-log?name={{this.name}}">
+                                    {{this.name}}
                                 </a>
                             </li>
-                            <li>
-                                <a href="catalog-list-2">
-                                    Chuột
-                                </a>
-                            </li>
-                            <li>
-                                <a href="catalog-gallery">
-                                    Tai nghe
-                                </a>
-                            </li>
-                            <li>
-                                <a href="catalog-gallery-2">
-                                   Màn hình
-                                </a>
-                            </li>
-                            <li>
-                                <a href="catalog-table">
-                                    Bàn phím
-                                </a>
-                            </li>
+                            {{/each}}
                         </ul>
                     </li>
                     {{!-- <li class="menu-item-has-children">

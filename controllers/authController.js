@@ -4,6 +4,7 @@ const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const catchAsync = require("../utils/catchAsync");
 const { promisify } = require("util");
+const Category = require("../models/categoryModel");
 
 const signToken = (id) => {
   return jwt.sign({ id: id }, process.env.JWT_SECRET, {
@@ -34,8 +35,6 @@ exports.signUp = catchAsync(async (req, res, next) => {
 
   const newUser = await User.create(req.body);
 
-  console.log(newUser);
-
   createSendToken(newUser, req, res);
 
   res.locals.user = newUser;
@@ -65,6 +64,9 @@ exports.login = catchAsync(async (req, res, next) => {
 });
 
 exports.isLoggedIn = async (req, res, next) => {
+  const cataLog = await Category.findAll({
+    raw: true,
+  });
   try {
     let token = req.cookies.jwt;
 
@@ -74,12 +76,16 @@ exports.isLoggedIn = async (req, res, next) => {
     const currentUser = await User.findByPk(decoded.id, {
       raw: true,
     });
-
+    const cataLog = await Category.findAll({
+      raw: true,
+    });
     res.locals.user = currentUser;
+    res.locals.cataLog = cataLog;
 
     req.user = currentUser;
     next();
   } catch (error) {
+    res.locals.cataLog = cataLog;
     next();
   }
 };

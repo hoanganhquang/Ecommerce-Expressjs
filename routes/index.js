@@ -18,7 +18,7 @@ router.use(cartRouter);
 router.use(auth.isLoggedIn);
 
 // Catalog page
-router.get("/cata-log", home.category);
+router.get("/cata-log", home.cataLog);
 
 /* GET home page. */
 router.get("/", home.index);

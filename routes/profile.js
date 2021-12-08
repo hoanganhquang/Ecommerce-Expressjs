@@ -6,6 +6,8 @@ const auth = require("../controllers/authController");
 
 router.use(auth.protect);
 
+router.patch("/:id", profile.editProfile);
+
 router.get("/", profile.profile);
 
 module.exports = router;

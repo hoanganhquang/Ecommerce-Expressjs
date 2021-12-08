@@ -1,16 +1,32 @@
+const { raw } = require("body-parser");
 const Category = require("../models/categoryModel");
+const Product = require("../models/productModel");
 const catchAsync = require("../utils/catchAsync");
 
 exports.index = catchAsync(async (req, res, next) => {
-  const allCategory = await Category.findAll();
+  const allProducts = await Product.findAll({
+    limit: 6,
+  });
+
   res.render("home/index", {
-    allCategory,
+    allProducts,
   });
 });
 
-exports.category = (req, res) => {
-  res.render("home/category");
-};
+exports.cataLog = catchAsync(async (req, res) => {
+  let getOneCata = await Category.findAll({
+    where: {
+      name: req.query.name,
+    },
+    include: {
+      model: Product,
+    },
+  });
+
+  res.render("home/category", {
+    getOneCata,
+  });
+});
 
 exports.cart = (req, res) => {
   res.render("home/cart");
