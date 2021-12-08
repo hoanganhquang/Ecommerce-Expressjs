@@ -16,13 +16,12 @@ const Voucher = sequelize.define(
     },
     expiryDate: {
       type: DataTypes.DATE,
-      allowNull: true,
-      defaultValue: Date.now(),
+      allowNull: false,
     },
     createDate: {
       type: DataTypes.DATE,
       allowNull: true,
-      defaultValue: Date.now(),
+      defaultValue: Date(),
     },
     quantity: {
       type: DataTypes.INTEGER,

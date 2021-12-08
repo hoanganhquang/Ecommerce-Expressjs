@@ -5,8 +5,12 @@ const voucher = require("../controllers/voucherController");
 const auth = require("../controllers/authController");
 
 router.use(auth.protect);
+
+// delete
+router.get("/delete/:id", voucher.deleteVoucher);
+
 // add voucher
-router.get("/add", voucher.addVoucher);
+router.route("/add").get(voucher.addVoucher).post(voucher.addVoucher);
 
 // edit voucher
 router.get("/edit/:id", voucher.editVoucher);

@@ -5,11 +5,14 @@ const product = require("../controllers/productController");
 const auth = require("../controllers/authController");
 
 router.use(auth.protect);
+
+router.delete("/:id", product.deleteProduct);
+
 // add product
 router.route("/add").get(product.addProduct).post(product.addProduct);
 
 // edit product
-router.get("/edit/:id", product.editProduct);
+router.route("/:id").get(product.editProduct).patch(product.editProduct);
 
 // product list
 router.get("/", product.productList);

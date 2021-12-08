@@ -4,8 +4,6 @@ const router = require("express").Router();
 const cart = require("../controllers/cartController");
 const auth = require("../controllers/authController");
 
-router.use(auth.protect);
-
-router.get("/cart", cart.cart);
+router.get("/cart", auth.protect, cart.cart);
 
 module.exports = router;

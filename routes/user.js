@@ -5,8 +5,9 @@ const user = require("../controllers/userController");
 const auth = require("../controllers/authController");
 
 router.use(auth.protect);
+
 // edit user
-router.get("/edit/:id", user.editUser);
+router.route("/:id").get(user.editUser).patch(user.editUser);
 
 // user list
 router.get("/", user.userList);

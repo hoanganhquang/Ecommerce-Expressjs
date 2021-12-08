@@ -5,6 +5,9 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const hbs = require("hbs");
 const bodyParser = require("body-parser");
+const methodOverride = require("method-override");
+const busboyBodyParser = require("busboy-body-parser");
+
 // Router
 const homeRouter = require("./routes/index");
 const productRouter = require("./routes/product");
@@ -14,9 +17,11 @@ const orderRouter = require("./routes/order");
 const paymentRouter = require("./routes/payment");
 const voucherRouter = require("./routes/voucher");
 const dbRouter = require("./routes/dashboard");
-const busboyBodyParser = require("busboy-body-parser");
+const profileRouter = require("./routes/profile");
 
 const app = express();
+
+app.use(methodOverride("_method"));
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -57,7 +62,7 @@ app.use(busboyBodyParser());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/", homeRouter);
+app.use("/profile", profileRouter);
 app.use("/users", userRouter);
 app.use("/orders", orderRouter);
 app.use("/payments", paymentRouter);
@@ -65,6 +70,7 @@ app.use("/vouchers", voucherRouter);
 app.use("/category", categoryRouter);
 app.use("/products", productRouter);
 app.use("/dashboard", dbRouter);
+app.use("/", homeRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

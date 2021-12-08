@@ -1,12 +1,11 @@
 const express = require("express");
 const router = express.Router();
 
-const dashboard = require("../controllers/dashboardController");
+const profile = require("../controllers/profileController");
 const auth = require("../controllers/authController");
 
 router.use(auth.protect);
 
-// DB main page
-router.get("/", dashboard.index);
+router.get("/", profile.profile);
 
 module.exports = router;

@@ -28,12 +28,13 @@
                       
                         </div>
                         <div class="body">
-                            <form id="form_validation" method="POST" enctype="multipart/form-data">
+
+                            <form id="form_validation" method="POST" action="/category/{{category.id}}?_method=PATCH" enctype="multipart/form-data">
                                 <div class="form-group form-float col-md-6">
-                                    <input type="text" class="form-control" placeholder="Tên loại" name="name" required>
+                                    <input type="text" class="form-control" placeholder="Tên loại" value="{{category.name}}" name="name" required>
                                 </div>
                                 <div class="form-group form-float col-md-6">
-                                    <textarea name="textDescription" cols="30" rows="5" placeholder="Mô tả" class="form-control no-resize" required></textarea>
+                                    <textarea name="textDescription" cols="30" rows="5" placeholder="Mô tả" class="form-control no-resize" required>{{category.textDescription}}</textarea>
                                 </div>
                                 <div class="form-group form-float col-md-6">
                                     <input type="file" class="form-control">
