@@ -18,6 +18,7 @@ const paymentRouter = require("./routes/payment");
 const voucherRouter = require("./routes/voucher");
 const dbRouter = require("./routes/dashboard");
 const profileRouter = require("./routes/profile");
+const cartRouter = require("./routes/cart");
 
 const app = express();
 
@@ -62,6 +63,7 @@ app.use(busboyBodyParser());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+app.use("/carts", cartRouter);
 app.use("/profile", profileRouter);
 app.use("/users", userRouter);
 app.use("/orders", orderRouter);

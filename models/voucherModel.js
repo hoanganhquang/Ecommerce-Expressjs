@@ -1,9 +1,10 @@
-const { Sequelize, DataTypes } = require("sequelize");
+const { DataTypes } = require("sequelize");
 
 const sequelize = require("./DBConfig");
+const Order = require("./orderModel");
 
 const Voucher = sequelize.define(
-  "voucher",
+  "vouchers",
   {
     voucherCode: {
       type: DataTypes.STRING,
@@ -30,7 +31,13 @@ const Voucher = sequelize.define(
   },
   {
     timestamps: false,
+    tableName: "vouchers",
   }
 );
+
+Voucher.hasMany(Order);
+Order.belongsTo(Voucher, {
+  foreignKey: "voucherCode",
+});
 
 module.exports = Voucher;

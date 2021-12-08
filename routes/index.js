@@ -7,13 +7,9 @@ const home = require("../controllers/homeController");
 
 // Router
 const authRouter = require("./auth");
-const cartRouter = require("./cart");
 
 // Login/register page
 router.use(authRouter);
-
-// Cart page
-router.use(cartRouter);
 
 router.use(auth.isLoggedIn);
 

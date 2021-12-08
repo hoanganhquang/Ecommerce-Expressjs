@@ -6,10 +6,12 @@ const auth = require("../controllers/authController");
 
 router.use(auth.protect);
 // edit order
-router.get("/edit/:id", order.editOrder);
+router.get("/:id", order.editOrder);
 
 // order detail list
 router.get("/details", order.orderDetail);
+
+router.get("/add", order.addOrder);
 
 // order list
 router.get("/", order.orderList);

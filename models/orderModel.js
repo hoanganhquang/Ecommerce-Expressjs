@@ -1,6 +1,5 @@
-const { Sequelize, DataTypes } = require("sequelize");
+const { DataTypes } = require("sequelize");
 
-const Voucher = require("./voucherModel");
 const User = require("./userModel");
 
 const sequelize = require("./DBConfig");
@@ -32,11 +31,6 @@ const Order = sequelize.define(
     timestamps: false,
   }
 );
-
-Voucher.hasMany(Order);
-Order.belongsTo(Voucher, {
-  foreignKey: "voucherCode",
-});
 
 User.hasMany(Order);
 Order.belongsTo(User, {
