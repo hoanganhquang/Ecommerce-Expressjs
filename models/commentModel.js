@@ -21,7 +21,6 @@ const Comment = sequelize.define(
     commentDate: {
       type: DataTypes.DATE,
       allowNull: true,
-      defaultValue: Date.now(),
     },
   },
   {

@@ -28,10 +28,6 @@ const Orderdetail = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    total: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
   },
   {
     timestamps: false,

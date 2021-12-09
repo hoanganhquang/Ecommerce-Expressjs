@@ -11,7 +11,7 @@ router.get("/:id", order.editOrder);
 // order detail list
 router.get("/details", order.orderDetail);
 
-router.get("/add", order.addOrder);
+router.post("/add", order.addOrder);
 
 // order list
 router.get("/", order.orderList);

@@ -17,6 +17,9 @@ exports.addProduct = catchAsync(async (req, res) => {
   const allCategory = await Category.findAll();
 
   if (req.method == "POST") {
+    console.log(req.body.file);
+    console.log(req.file);
+    req.body.image = req.file.filename;
     await Product.create(req.body);
     res.redirect("back");
   }

@@ -16,7 +16,6 @@ const Payment = sequelize.define(
     paymentDate: {
       type: DataTypes.DATE,
       allowNull: true,
-      defaultValue: Date.now(),
     },
     amount: {
       type: DataTypes.INTEGER,

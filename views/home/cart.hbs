@@ -16,7 +16,7 @@
         </ul>
         <h1 class="main-ttl"><span>Cart</span></h1>
         <!-- Cart Items - start -->
-        <form action="#">
+        <form action="/orders/add" method="post">
 
             <div class="cart-items-wrap">
                 <table class="cart-items">
@@ -40,7 +40,9 @@
                         </td>
 
                         <td class="item-id" style="display: none;">{{this.id}}</td>
-              
+
+                        <input value="{{this.id}}" name="productId" type="hidden">
+
                         <td class="cart-ttl">
                             <a href="">{{this.productName}}</a>
                         </td>
@@ -50,7 +52,7 @@
                        
                         <td class="cart-quantity">
                             <p class="cart-qnt">
-                                <input value="1" type="text">
+                                <input value="" name="quantityOrdered" type="text">
                                 <a href="#" class="cart-plus"><i class="fa fa-angle-up"></i></a>
                                 <a href="#" class="cart-minus"><i class="fa fa-angle-down"></i></a>
                             </p>
@@ -66,11 +68,11 @@
             </div>
             <ul class="cart-total">
                 <li class="cart-summ"></li>
+                <input value="" id="valueTotal" name="total" type="hidden">
+
             </ul>
             <div class="cart-submit">
-                
-                <a href="" class="cart-submit-btn">Checkout</a>
-                <a href="#" class="cart-clear">Clear cart</a>
+                <button class="cart-submit-btn">Checkout</button>
             </div>
         </form>
         <!-- Cart Items - end -->
@@ -80,6 +82,10 @@
 <script>
 
     let cartPrice = document.querySelectorAll(".cart-price");
+    let totalValue = document.querySelector(".cart-summ");
+    let itemId = document.querySelectorAll(".item-id");
+    const valueTotal = document.getElementById("valueTotal");
+
     cartPrice = [...cartPrice]
     cartPrice.splice(0, 1);
     let total = 0;
@@ -88,15 +94,9 @@
         total += Number(e.innerText)
     })
 
-    let totalValue = document.querySelector(".cart-summ");
-
     totalValue.innerText = "TOTAL: " + total
-
-    let checkoutBtn = document.querySelector(".cart-submit-btn");
-
-    checkoutBtn.addEventListener("click", ()=>{
-        window.location.assign(`/orders/add?=`)
-    })
+    valueTotal.value = total
+ 
 
 </script>
 <!-- Main Content - end -->

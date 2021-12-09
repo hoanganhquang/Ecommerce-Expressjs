@@ -10,15 +10,21 @@ exports.orderList = catchAsync(async (req, res) => {
 
 exports.addOrder = catchAsync(async (req, res) => {
   console.log(req.body);
-  req.body.userId = req.user.dataValues;
-  console.log(req.body);
-  const newOrder = await Order.create(req.body);
-  console.log(newOrder);
-  await Orderdetail.create({
-    orderNumber: newOrder.orderNumber,
-    productId: req.query.productId,
-    quantityOrdered: req.query.quantityOrdered,
+  let { productId, quantityOrdered, total } = req.body;
+  const newOrder = await Order.create({
+    userId: req.user.dataValues.id,
+    total: req.body.total,
   });
+  const newData = productId.map((value, i) => {
+    return {
+      orderNumber: newOrder.dataValues.orderNumber,
+      productId: value,
+      quantityOrdered: quantityOrdered[i],
+    };
+  });
+
+  const newOrDe = await Orderdetail.bulkCreate(newData);
+
   res.redirect("/");
 });
 

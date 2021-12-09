@@ -15,7 +15,8 @@ const Order = sequelize.define(
     },
     status: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
+      defaultValue: "Chưa giao",
     },
     comments: {
       type: DataTypes.TEXT("medium"),
@@ -24,7 +25,9 @@ const Order = sequelize.define(
     orderDate: {
       type: DataTypes.DATE,
       allowNull: true,
-      defaultValue: Date.now(),
+    },
+    total: {
+      type: DataTypes.INTEGER,
     },
   },
   {
