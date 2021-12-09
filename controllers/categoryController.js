@@ -8,6 +8,7 @@ exports.categoryList = catchAsync(async (req, res) => {
 
 exports.addCategory = catchAsync(async (req, res) => {
   if (req.method == "POST") {
+    req.body.image = req.file.originalname;
     await Category.create(req.body);
     res.redirect("back");
   }
@@ -17,6 +18,9 @@ exports.addCategory = catchAsync(async (req, res) => {
 
 exports.editCategory = catchAsync(async (req, res) => {
   if (req.method == "PATCH") {
+    if (req.file) {
+      req.body.image = req.file.originalname;
+    }
     await Category.update(req.body, {
       where: {
         id: req.params.id,

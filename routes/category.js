@@ -3,13 +3,24 @@ const router = express.Router();
 
 const category = require("../controllers/categoryController");
 const auth = require("../controllers/authController");
+const imageHandle = require("../utils/imageHandle");
 
 router.use(auth.protect);
 // add category
-router.route("/add").get(category.addCategory).post(category.addCategory);
+router
+  .route("/add")
+  .get(category.addCategory)
+  .post(imageHandle.uploadPhoto, imageHandle.resizePhoto, category.addCategory);
 
 // edit category
-router.route("/:id").get(category.editCategory).patch(category.editCategory);
+router
+  .route("/:id")
+  .get(category.editCategory)
+  .patch(
+    imageHandle.uploadPhoto,
+    imageHandle.resizePhoto,
+    category.editCategory
+  );
 
 // category list
 router.get("/", category.categoryList);

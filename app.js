@@ -6,7 +6,8 @@ const logger = require("morgan");
 const hbs = require("hbs");
 const bodyParser = require("body-parser");
 const methodOverride = require("method-override");
-const busboyBodyParser = require("busboy-body-parser");
+// const busboyBodyParser = require("busboy-body-parser");
+// const fileUpload = require("express-fileupload");
 
 // Router
 const homeRouter = require("./routes/index");
@@ -59,8 +60,9 @@ app.set("view engine", "hbs");
 app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(busboyBodyParser());
+// app.use(busboyBodyParser());
 app.use(cookieParser());
+// app.use(fileUpload());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/carts", cartRouter);

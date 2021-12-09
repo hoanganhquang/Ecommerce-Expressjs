@@ -24,7 +24,7 @@
                 <div class="col-lg-4 col-md-12" >
                     <div class="card mcard_3">
                         <div class="body">
-                            <a href=""><img src="/uploads/img/category/laptop.png" class="rounded-circle shadow " alt="profile-image"></a>
+                            <a href=""><img src="/uploads/img/{{curUser.image}}" class="rounded-circle shadow " alt="profile-image"></a>
                             <h4 class="m-t-10">{{curUser.name}}</h4>                            
                             <div class="row">
                                 <div class="col-12">
@@ -72,7 +72,7 @@
                                     <textarea name="address" cols="30" rows="5" placeholder="Địa chỉ" class="form-control no-resize" required>{{curUser.address}}</textarea>
                                 </div>
                                 <div class="form-group form-float col-md-8">
-                                    <input type="file" class="form-control">
+                                    <input type="file" name="photo" class="form-control">
                                 </div>
                                  <div class="form-group form-float col-md-8">
                                     <button class="btn btn-raised btn-primary waves-effect" type="submit">SUBMIT</button>

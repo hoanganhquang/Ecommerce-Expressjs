@@ -9,7 +9,6 @@ exports.productList = catchAsync(async (req, res) => {
       attributes: ["name"],
     },
   });
-
   res.render("dashboard/product/product-list", { allProducts });
 });
 
@@ -17,9 +16,7 @@ exports.addProduct = catchAsync(async (req, res) => {
   const allCategory = await Category.findAll();
 
   if (req.method == "POST") {
-    console.log(req.body.file);
-    console.log(req.file);
-    req.body.image = req.file.filename;
+    req.body.image = req.file.originalname;
     await Product.create(req.body);
     res.redirect("back");
   }
@@ -31,7 +28,9 @@ exports.addProduct = catchAsync(async (req, res) => {
 
 exports.editProduct = catchAsync(async (req, res) => {
   if (req.method == "PATCH") {
-    console.log(req.body);
+    if (req.file) {
+      req.body.image = req.file.originalname;
+    }
     await Product.update(req.body, {
       where: {
         id: req.params.id,

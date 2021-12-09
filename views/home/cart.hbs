@@ -35,7 +35,7 @@
                     <tr>
                         <td class="cart-image">
                             <a href="product.html">
-                                <img src="http://placehold.it/61x80" alt="Similique delectus totam">
+                                <img src="/uploads/img/{{this.image}}" alt="Similique delectus totam">
                             </a>
                         </td>
 
@@ -82,7 +82,6 @@
 <script>
 
     let cartPrice = document.querySelectorAll(".cart-price");
-    let totalValue = document.querySelector(".cart-summ");
     let itemId = document.querySelectorAll(".item-id");
     const valueTotal = document.getElementById("valueTotal");
 
@@ -94,6 +93,8 @@
         total += Number(e.innerText)
     })
 
+    let totalValue = document.querySelector(".cart-summ");
+    
     totalValue.innerText = "TOTAL: " + total
     valueTotal.value = total
  

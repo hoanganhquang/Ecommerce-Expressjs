@@ -7,7 +7,7 @@ const imageHandle = require("../utils/imageHandle");
 
 router.use(auth.protect);
 
-router.delete("/:id", product.deleteProduct);
+router.get("/del/:id", product.deleteProduct);
 
 // add product
 router
@@ -16,7 +16,10 @@ router
   .post(imageHandle.uploadPhoto, imageHandle.resizePhoto, product.addProduct);
 
 // edit product
-router.route("/:id").get(product.editProduct).patch(product.editProduct);
+router
+  .route("/:id")
+  .get(product.editProduct)
+  .patch(imageHandle.uploadPhoto, imageHandle.resizePhoto, product.editProduct);
 
 // product list
 router.get("/", product.productList);

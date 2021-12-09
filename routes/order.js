@@ -5,11 +5,12 @@ const order = require("../controllers/orderController");
 const auth = require("../controllers/authController");
 
 router.use(auth.protect);
-// edit order
-router.get("/:id", order.editOrder);
 
 // order detail list
-router.get("/details", order.orderDetail);
+router.get("/details", order.orderDetails);
+
+// edit order
+router.get("/:id", order.editOrder);
 
 router.post("/add", order.addOrder);
 

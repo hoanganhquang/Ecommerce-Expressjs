@@ -26,24 +26,21 @@
                                 <thead>
                                     <tr>
                                         <th>Mã đơn hàng</th>
-                                        <th data-breakpoints="sm xs">Tên sản phẩm</th>
+                                        <th data-breakpoints="sm xs">Mã sản phẩm</th>
                                         <th data-breakpoints="sm xs">Số lượng</th>
-                                        <th data-breakpoints="sm xs">Tổng giá</th>
-                                        <th data-breakpoints="sm xs md">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {{#each allDetail}}
                                     <tr>
-                                        <td>1</td>
-                                        <td>Laptop</td>
-                                        <td>10</td>
-                                        <td>1.000.000</td>
-                                        <td>
-                                            <a href="javascript:void(0);" class="btn btn-default waves-effect waves-float btn-sm waves-green"><i class="zmdi zmdi-edit"></i></a>
-                                            <a href="javascript:void(0);" class="btn btn-default waves-effect waves-float btn-sm waves-red"><i class="zmdi zmdi-delete"></i></a>
-                                        </td>
+                                        <td>{{this.orderNumber}}</td>
+
+                                        <td>{{this.productId}}</td>
+                
+                                        <td>{{this.quantityOrdered}}</td>
+                                     
                                     </tr>
-                                    
+                                    {{/each}}
                                 </tbody>
                             </table>
                         </div>

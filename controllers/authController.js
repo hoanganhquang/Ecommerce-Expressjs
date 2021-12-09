@@ -97,12 +97,18 @@ exports.protect = catchAsync(async (req, res, next) => {
     token = req.cookies.jwt;
   }
 
+  const cataLog = await Category.findAll({
+    raw: true,
+  });
+
   // decode token in order to check payload -> id
   const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
 
   const user = await User.findByPk(decoded.id);
   req.user = user;
   res.locals.user = req.user;
+  res.locals.cataLog = cataLog;
+
   next();
 });
 

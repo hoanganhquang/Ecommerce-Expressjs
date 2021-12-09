@@ -1,13 +1,14 @@
-const { raw } = require("body-parser");
 const Category = require("../models/categoryModel");
 const Product = require("../models/productModel");
 const catchAsync = require("../utils/catchAsync");
 
 exports.index = catchAsync(async (req, res, next) => {
   const allProducts = await Product.findAll({
-    limit: 6,
+    include: {
+      model: Category,
+    },
   });
-
+  console.log(allProducts);
   res.render("home/index", {
     allProducts,
   });

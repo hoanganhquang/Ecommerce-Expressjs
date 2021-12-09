@@ -28,19 +28,19 @@
                                         <th data-breakpoints="sm xs">Người thanh toán</th>
                                         <th data-breakpoints="sm xs">Ngày thanh toán</th>
                                         <th data-breakpoints="sm xs">Tổng tiền</th>
-                                        <th data-breakpoints="sm xs md">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {{#each payments}}
                                     <tr>
-                                        <td>Tab</td>
-                                        <td>01/01/2021</td>
-                                        <td>10.000.000</td>
-                                        <td>
-                                            <a href="javascript:void(0);" class="btn btn-default waves-effect waves-float btn-sm waves-green"><i class="zmdi zmdi-edit"></i></a>
-                                            <a href="javascript:void(0);" class="btn btn-default waves-effect waves-float btn-sm waves-red"><i class="zmdi zmdi-delete"></i></a>
-                                        </td>
+                                        {{#with this.user}}
+                                        <td>{{name}}</td>
+                                        {{/with}}
+                                        <td>{{this.paymentDate}}</td>
+                                        <td>{{this.amount}}</td>
+                                      
                                     </tr>
+                                    {{/each}}
                                     
                                 </tbody>
                             </table>

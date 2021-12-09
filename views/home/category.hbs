@@ -621,7 +621,7 @@
 				{{#each getOneCata}}
 					{{#each this.products}}
 				<div class="prodlist-i">
-					<a class="prodlist-i-img" href=""><!-- NO SPACE --><img src="http://placehold.it/300x311" alt="Adipisci aperiam commodi"><!-- NO SPACE --></a>
+					<a class="prodlist-i-img" href=""><!-- NO SPACE --><img src="/uploads/img/{{this.image}}" alt="Adipisci aperiam commodi"><!-- NO SPACE --></a>
 					<div class="prodlist-i-cont">
 						<h3><a href="">{{productName}}</a></h3>
 						<div class="prodlist-i-txt">
@@ -638,33 +638,15 @@
 									<li><img src="img/color/green.jpg" alt=""></li>
 								</ul>
 							</div>
-							<div class="prodlist-i-skuitem">
-								<p class="prodlist-i-skuttl">Clothes sizes</p>
-								<div class="offer-props-select">
-									<p>XS</p>
-									<ul>
-										<li><a href="#">S</a></li>
-										<li><a href="#">M</a></li>
-										<li><a href="#">L</a></li>
-										<li class="active"><a href="#">XS</a></li>
-										<li><a href="#">XL</a></li>
-										<li><a href="#">XXL</a></li>
-										<li><a href="#">XXXL</a></li>
-									</ul>
-								</div>
-							</div>
+							
 						</div>
 						<div class="prodlist-i-action">
-							<p class="prodlist-i-qnt">
-								<input value="1" type="text">
-								<a href="#" class="prodlist-i-plus"><i class="fa fa-angle-up"></i></a>
-								<a href="#" class="prodlist-i-minus"><i class="fa fa-angle-down"></i></a>
-							</p>
+						
 							<p class="prodlist-i-addwrap">
 								<a href="/carts/add/{{id}}" class="prodlist-i-add">Add to cart</a>
 							</p>
 								<span class="prodlist-i-price">
-							<b>$59</b>
+							<b>{{buyPrice}}VNĐ</b>
 								</span>
 							</div>
 

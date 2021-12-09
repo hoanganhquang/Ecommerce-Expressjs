@@ -1,11 +1,17 @@
 const catchAsync = require("../utils/catchAsync");
 const Order = require("../models/orderModel");
 const Orderdetail = require("../models/orderdetailModel");
+const Payment = require("../models/paymentModel");
 
 exports.orderList = catchAsync(async (req, res) => {
-  const orders = await Order.findAll();
-  console.log(orders);
-  res.render("dashboard/order/order-list");
+  const orders = await Order.findAll({
+    attributes: {
+      exclude: ["voucherVoucherCode"],
+    },
+  });
+  res.render("dashboard/order/order-list", {
+    orders,
+  });
 });
 
 exports.addOrder = catchAsync(async (req, res) => {
@@ -15,15 +21,29 @@ exports.addOrder = catchAsync(async (req, res) => {
     userId: req.user.dataValues.id,
     total: req.body.total,
   });
-  const newData = productId.map((value, i) => {
-    return {
-      orderNumber: newOrder.dataValues.orderNumber,
-      productId: value,
-      quantityOrdered: quantityOrdered[i],
-    };
+
+  await Payment.create({
+    userId: req.user.dataValues.id,
+    amount: total,
   });
 
-  const newOrDe = await Orderdetail.bulkCreate(newData);
+  if (Array.isArray(productId)) {
+    const newData = productId.map((value, i) => {
+      return {
+        orderNumber: newOrder.dataValues.orderNumber,
+        productId: value,
+        quantityOrdered: quantityOrdered[i],
+      };
+    });
+
+    const newOrDe = await Orderdetail.bulkCreate(newData);
+  } else {
+    const newOrDe = await Orderdetail.create({
+      orderNumber: newOrder.dataValues.orderNumber,
+      productId: productId,
+      quantityOrdered: quantityOrdered,
+    });
+  }
 
   res.redirect("/");
 });
@@ -32,6 +52,14 @@ exports.editOrder = (req, res) => {
   res.render("dashboard/order/edit-order");
 };
 
-exports.orderDetail = (req, res) => {
-  res.render("dashboard/order/order-detail");
-};
+exports.orderDetails = catchAsync(async (req, res) => {
+  const allDetail = await Orderdetail.findAll({
+    attributes: {
+      exclude: ["orderOrderNumber"],
+    },
+  });
+
+  res.render("dashboard/order/order-detail", {
+    allDetail,
+  });
+});

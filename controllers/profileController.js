@@ -31,7 +31,9 @@ exports.editProfile = catchAsync(async (req, res, next) => {
       res.redirect("back");
     }
   }
-
+  if (req.file) {
+    req.body.image = req.file.originalname;
+  }
   await User.update(req.body, {
     where: {
       id: req.params.id,

@@ -34,7 +34,7 @@ const Product = sequelize.define(
       allowNull: false,
     },
     image: {
-      type: DataTypes.TEXT("medium"),
+      type: DataTypes.STRING,
       allowNull: true,
       defaultValue: "user",
     },
