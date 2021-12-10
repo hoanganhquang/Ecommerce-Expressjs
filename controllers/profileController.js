@@ -4,8 +4,16 @@ const bcrypt = require("bcrypt");
 
 exports.profile = catchAsync(async (req, res) => {
   const curUser = req.user;
+  let err;
+  console.log(req.err);
+  if (req.err) {
+    err = req.err;
+  } else {
+    err = false;
+  }
   res.render("dashboard/profile", {
     curUser,
+    err,
   });
 });
 
@@ -29,6 +37,8 @@ exports.editProfile = catchAsync(async (req, res, next) => {
         }
       );
       res.redirect("back");
+    } else {
+      return next(new Error("Mật khẩu hiện tại không chính xác"));
     }
   }
   if (req.file) {

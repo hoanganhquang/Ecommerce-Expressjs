@@ -17,7 +17,6 @@ const userRouter = require("./routes/user");
 const orderRouter = require("./routes/order");
 const paymentRouter = require("./routes/payment");
 const voucherRouter = require("./routes/voucher");
-const dbRouter = require("./routes/dashboard");
 const profileRouter = require("./routes/profile");
 const cartRouter = require("./routes/cart");
 

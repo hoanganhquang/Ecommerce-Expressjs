@@ -38,7 +38,7 @@ exports.signUp = catchAsync(async (req, res, next) => {
 
   res.locals.user = newUser;
 
-  res.redirect("/dashboard");
+  res.redirect("/profile");
 });
 
 exports.login = catchAsync(async (req, res, next) => {
@@ -49,6 +49,12 @@ exports.login = catchAsync(async (req, res, next) => {
     raw: true,
   });
 
+  if (!user) {
+    return res.render("home/auth", {
+      error: "Sai thông tin email",
+    });
+  }
+
   const match = await bcrypt.compare(req.body.password, user.password);
 
   if (match) {
@@ -56,9 +62,11 @@ exports.login = catchAsync(async (req, res, next) => {
 
     res.locals.user = user;
 
-    res.redirect("/dashboard");
+    res.redirect("/profile");
   } else {
-    res.redirect("/auth");
+    res.render("home/auth", {
+      error: "Sai thông tin mật khẩu",
+    });
   }
 });
 

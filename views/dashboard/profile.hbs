@@ -87,6 +87,9 @@
                 <div class="header">
                   <h2><strong>CHỈNH SỬA</strong> MẬT KHẨU</h2>
                 </div>
+                {{#if err}}
+                <p style="color: red;">{{err}}</p>
+                {{/if}}
                 <div class="body">
                     <form id="form_validation" method="POST" action="/profile/{{curUser.id}}?_method=PATCH" enctype="multipart/form-data">
                                 <div class="form-group form-float col-md-8">

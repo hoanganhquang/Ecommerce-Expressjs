@@ -19,6 +19,9 @@
         <div class="auth-wrap">
             <div class="auth-col">
                 <h2>Login</h2>
+                {{#if error}}
+                <p style="color: red; padding-left: 106px; position: absolute; top: 346px;">{{error}}</p>
+                {{/if}}
                 <form method="POST" action="/login" class="login">
                     <p>
                         <label for="username">E-mail <span class="required">*</span></label><input type="text" name="email" id="username">
@@ -30,7 +33,7 @@
                         <input type="submit" value="Login">
                     </p>
                     <p class="auth-lost_password">
-                        <a href="#">Lost your password?</a>
+                        <a href="#">Quên mật khẩu?</a>
                     </p>
                 </form>
             </div>
