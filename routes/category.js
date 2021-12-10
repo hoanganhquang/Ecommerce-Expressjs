@@ -5,7 +5,10 @@ const category = require("../controllers/categoryController");
 const auth = require("../controllers/authController");
 const imageHandle = require("../utils/imageHandle");
 
-router.use(auth.protect);
+router.use(auth.protect, auth.restrictTo("admin"));
+
+router.get("/del/:id", category.deleteCategory);
+
 // add category
 router
   .route("/add")

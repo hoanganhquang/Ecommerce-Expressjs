@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
 
 const User = require("./userModel");
-
+const Voucher = require("./voucherModel");
 const sequelize = require("./DBConfig");
 
 const Order = sequelize.define(
@@ -38,6 +38,11 @@ const Order = sequelize.define(
 User.hasMany(Order);
 Order.belongsTo(User, {
   foreignKey: "userId",
+});
+
+Voucher.hasMany(Order);
+Order.belongsTo(Voucher, {
+  foreignKey: "voucherCode",
 });
 
 module.exports = Order;

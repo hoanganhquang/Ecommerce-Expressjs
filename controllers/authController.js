@@ -1,5 +1,4 @@
 const jwt = require("jsonwebtoken");
-const crypto = require("crypto");
 const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const catchAsync = require("../utils/catchAsync");
@@ -70,7 +69,6 @@ exports.isLoggedIn = async (req, res, next) => {
   try {
     let token = req.cookies.jwt;
 
-    // decode token in order to check payload -> id
     const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
 
     const currentUser = await User.findByPk(decoded.id, {
@@ -92,17 +90,21 @@ exports.isLoggedIn = async (req, res, next) => {
 
 exports.protect = catchAsync(async (req, res, next) => {
   let token;
-  // check token in header
   if (req.cookies.jwt) {
     token = req.cookies.jwt;
   }
-
+  if (!token) {
+    return next(new Error("Bạn cần đăng nhập"));
+  }
   const cataLog = await Category.findAll({
     raw: true,
   });
 
-  // decode token in order to check payload -> id
   const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+
+  if (!decoded) {
+    return next(new Error("Bạn cần đăng nhập"));
+  }
 
   const user = await User.findByPk(decoded.id);
   req.user = user;
@@ -119,6 +121,18 @@ exports.logout = (req, res) => {
   });
 
   res.redirect("/");
+};
+
+exports.restrictTo = (...roles) => {
+  return (req, res, next) => {
+    const user = req.user;
+
+    if (roles.indexOf(user.role) === -1) {
+      return next(new Error("Không được uỷ quyền"));
+    }
+
+    next();
+  };
 };
 
 exports.auth = (req, res) => {

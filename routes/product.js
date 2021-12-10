@@ -5,7 +5,7 @@ const product = require("../controllers/productController");
 const auth = require("../controllers/authController");
 const imageHandle = require("../utils/imageHandle");
 
-router.use(auth.protect);
+router.use(auth.protect, auth.restrictTo("admin"));
 
 router.get("/del/:id", product.deleteProduct);
 

@@ -20,9 +20,26 @@ exports.addVoucher = catchAsync(async (req, res) => {
   res.render("dashboard/voucher/add-voucher");
 });
 
-exports.editVoucher = (req, res) => {
-  res.render("dashboard/voucher/edit-voucher");
-};
+exports.editVoucher = catchAsync(async (req, res) => {
+  if (req.method == "PATCH") {
+    await Voucher.update(req.body, {
+      where: {
+        voucherCode: req.params.id,
+      },
+    });
+
+    res.redirect("/vouchers");
+  }
+  const voucher = await Voucher.findOne({
+    where: {
+      voucherCode: req.params.id,
+    },
+  });
+  console.log(voucher);
+  res.render("dashboard/voucher/edit-voucher", {
+    voucher,
+  });
+});
 
 exports.deleteVoucher = catchAsync(async (req, res) => {
   await Voucher.destroy({

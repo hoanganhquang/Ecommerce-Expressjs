@@ -2,13 +2,27 @@ const catchAsync = require("../utils/catchAsync");
 const Order = require("../models/orderModel");
 const Orderdetail = require("../models/orderdetailModel");
 const Payment = require("../models/paymentModel");
+const Product = require("../models/productModel");
+const Cart = require("../models/cartModel");
 
 exports.orderList = catchAsync(async (req, res) => {
-  const orders = await Order.findAll({
+  let orders = await Order.findAll({
     attributes: {
       exclude: ["voucherVoucherCode"],
     },
   });
+
+  if (req.user.role == "user") {
+    orders = await Order.findAll({
+      attributes: {
+        exclude: ["voucherVoucherCode"],
+      },
+      where: {
+        userId: req.user.id,
+      },
+    });
+  }
+
   res.render("dashboard/order/order-list", {
     orders,
   });
@@ -20,6 +34,11 @@ exports.addOrder = catchAsync(async (req, res) => {
   const newOrder = await Order.create({
     userId: req.user.dataValues.id,
     total: req.body.total,
+  });
+
+  await Cart.destroy({
+    where: {},
+    truncate: true,
   });
 
   await Payment.create({
@@ -45,7 +64,7 @@ exports.addOrder = catchAsync(async (req, res) => {
     });
   }
 
-  res.redirect("/");
+  res.redirect("/orders");
 });
 
 exports.editOrder = (req, res) => {
@@ -53,11 +72,28 @@ exports.editOrder = (req, res) => {
 };
 
 exports.orderDetails = catchAsync(async (req, res) => {
-  const allDetail = await Orderdetail.findAll({
+  let allDetail = await Order.findAll({
+    include: {
+      model: Product,
+    },
     attributes: {
-      exclude: ["orderOrderNumber"],
+      exclude: "voucherVoucherCode",
     },
   });
+
+  if (req.user.role == "user") {
+    allDetail = await Order.findAll({
+      attributes: {
+        exclude: ["voucherVoucherCode"],
+      },
+      include: {
+        model: Product,
+      },
+      where: {
+        userId: req.user.id,
+      },
+    });
+  }
 
   res.render("dashboard/order/order-detail", {
     allDetail,

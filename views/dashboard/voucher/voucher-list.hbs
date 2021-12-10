@@ -33,7 +33,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{#each orders}}
+                                    {{#each allVoucher}}
                                     <tr>
                                         <td>{{this.voucherCode}}</td>
                                         <td>{{this.name}}</td>
@@ -41,7 +41,7 @@
                                         <td>{{this.quantity}}</td>
                                         <td>
                                             <a href="/vouchers/{{this.voucherCode}}" class="btn btn-default waves-effect waves-float btn-sm waves-green"><i class="zmdi zmdi-edit"></i></a>
-                                            <a href="/vouchers/delete/{{this.voucherCode}}" class="btn btn-default waves-effect waves-float btn-sm waves-red"><i class="zmdi zmdi-delete"></i></a>
+                                            <a href="/vouchers/del/{{this.voucherCode}}" class="btn btn-default waves-effect waves-float btn-sm waves-red"><i class="zmdi zmdi-delete"></i></a>
                                         </td>
                                     </tr>
                                     {{/each}}
@@ -49,18 +49,7 @@
                             </table>
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="body">                            
-                            <ul class="pagination pagination-primary m-b-0">
-                                <li class="page-item"><a class="page-link" href="javascript:void(0);"><i class="zmdi zmdi-arrow-left"></i></a></li>
-                                <li class="page-item active"><a class="page-link" href="javascript:void(0);">1</a></li>
-                                <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
-                                <li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
-                                <li class="page-item"><a class="page-link" href="javascript:void(0);">4</a></li>
-                                <li class="page-item"><a class="page-link" href="javascript:void(0);"><i class="zmdi zmdi-arrow-right"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
+                   
                 </div>
             </div>
         </div>

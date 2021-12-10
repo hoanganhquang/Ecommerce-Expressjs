@@ -6,7 +6,7 @@ const logger = require("morgan");
 const hbs = require("hbs");
 const bodyParser = require("body-parser");
 const methodOverride = require("method-override");
-// const busboyBodyParser = require("busboy-body-parser");
+const busboyBodyParser = require("busboy-body-parser");
 // const fileUpload = require("express-fileupload");
 
 // Router
@@ -73,7 +73,7 @@ app.use("/payments", paymentRouter);
 app.use("/vouchers", voucherRouter);
 app.use("/category", categoryRouter);
 app.use("/products", productRouter);
-app.use("/dashboard", dbRouter);
+// app.use("/dashboard", dbRouter);
 app.use("/", homeRouter);
 
 // catch 404 and forward to error handler

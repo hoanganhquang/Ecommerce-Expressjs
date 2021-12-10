@@ -29,7 +29,7 @@
                         <td class="cart-del">&nbsp;</td>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody "table-cart">
                         {{#with allItem}}
                         {{#each products}}
                     <tr>
@@ -97,6 +97,7 @@
     
     totalValue.innerText = "TOTAL: " + total
     valueTotal.value = total
+
  
 
 </script>

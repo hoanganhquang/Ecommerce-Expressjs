@@ -1,4 +1,16 @@
-<h1>error page</h1>
-<h1>{{message}}</h1>
-<h2>{{error.status}}</h2>
-<pre>{{error.stack}}</pre>
+{{> home_header}}
+<main>
+    <section class="container">
+
+        <div class="err404">
+            <h1 class="err404-ttl">{{error.status}}</h1>
+            <p class="err404-subttl">
+                {{message}}
+            </p>
+
+            <pre>{{error.stack}}</pre>  
+        
+        </div>
+    </section>
+</main>
+{{> home_footer}}

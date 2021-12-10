@@ -8,22 +8,22 @@ const sequelize = require("./DBConfig");
 const Orderdetail = sequelize.define(
   "orderdetail",
   {
-    orderNumber: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      references: {
-        model: "order",
-        key: "orderNumber",
-      },
-    },
-    productId: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      references: {
-        model: "product",
-        key: "id",
-      },
-    },
+    // orderNumber: {
+    //   type: DataTypes.INTEGER,
+    //   primaryKey: true,
+    //   references: {
+    //     model: "order",
+    //     key: "orderNumber",
+    //   },
+    // },
+    // productId: {
+    //   type: DataTypes.INTEGER,
+    //   primaryKey: true,
+    //   references: {
+    //     model: "product",
+    //     key: "id",
+    //   },
+    // },
     quantityOrdered: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -34,7 +34,13 @@ const Orderdetail = sequelize.define(
   }
 );
 
-Order.belongsToMany(Product, { through: Orderdetail });
-Product.belongsToMany(Order, { through: Orderdetail });
+Order.belongsToMany(Product, {
+  through: Orderdetail,
+  foreignKey: "orderNumber",
+});
+Product.belongsToMany(Order, {
+  through: Orderdetail,
+  foreignKey: "productId",
+});
 
 module.exports = Orderdetail;

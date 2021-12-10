@@ -4,16 +4,16 @@ const router = express.Router();
 const voucher = require("../controllers/voucherController");
 const auth = require("../controllers/authController");
 
-router.use(auth.protect);
+router.use(auth.protect, auth.restrictTo("admin"));
 
 // delete
-router.get("/delete/:id", voucher.deleteVoucher);
+router.get("/del/:id", voucher.deleteVoucher);
 
 // add voucher
 router.route("/add").get(voucher.addVoucher).post(voucher.addVoucher);
 
 // edit voucher
-router.get("/edit/:id", voucher.editVoucher);
+router.route("/:id").get(voucher.editVoucher).patch(voucher.editVoucher);
 
 // voucher list
 router.get("/", voucher.voucherList);

@@ -4,7 +4,7 @@ const router = express.Router();
 const payment = require("../controllers/paymentController");
 const auth = require("../controllers/authController");
 
-router.use(auth.protect);
+router.use(auth.protect, auth.restrictTo("admin"));
 // payment list
 router.get("/", payment.paymentList);
 

@@ -4,7 +4,7 @@ const router = express.Router();
 const user = require("../controllers/userController");
 const auth = require("../controllers/authController");
 
-router.use(auth.protect);
+router.use(auth.protect, auth.restrictTo("admin"));
 
 // edit user
 router.route("/:id").get(user.editUser).patch(user.editUser);

@@ -43,3 +43,13 @@ exports.editCategory = catchAsync(async (req, res) => {
     category,
   });
 });
+
+exports.deleteCategory = catchAsync(async (req, res) => {
+  await Category.destroy({
+    where: {
+      id: req.params.id,
+    },
+  });
+
+  res.redirect("/category");
+});
