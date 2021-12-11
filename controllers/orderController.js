@@ -4,6 +4,7 @@ const Orderdetail = require("../models/orderdetailModel");
 const Payment = require("../models/paymentModel");
 const Product = require("../models/productModel");
 const Cart = require("../models/cartModel");
+const User = require("../models/userModel");
 
 exports.orderList = catchAsync(async (req, res) => {
   let orders = await Order.findAll({
@@ -20,22 +21,23 @@ exports.orderList = catchAsync(async (req, res) => {
       where: {
         userId: req.user.id,
       },
+      include: {
+        model: User,
+      },
     });
   }
-
   res.render("dashboard/order/order-list", {
     orders,
   });
 });
 
 exports.addOrder = catchAsync(async (req, res) => {
-  console.log(req.body);
   let { productId, quantityOrdered, total } = req.body;
   const newOrder = await Order.create({
     userId: req.user.dataValues.id,
     total: req.body.total,
   });
-
+  console.log(req.body);
   await Cart.destroy({
     where: {},
     truncate: true,
@@ -94,7 +96,6 @@ exports.orderDetails = catchAsync(async (req, res) => {
       },
     });
   }
-
   res.render("dashboard/order/order-detail", {
     allDetail,
   });

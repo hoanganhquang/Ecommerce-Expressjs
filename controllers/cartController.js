@@ -2,6 +2,7 @@ const catchAsync = require("../utils/catchAsync");
 const Cart = require("../models/cartModel");
 const Product = require("../models/productModel");
 const User = require("../models/userModel");
+const Voucher = require("../models/voucherModel");
 
 exports.cart = catchAsync(async (req, res) => {
   let user = req.user;
@@ -15,9 +16,13 @@ exports.cart = catchAsync(async (req, res) => {
       model: Product,
     },
   });
+
+  const vouchers = await Voucher.findAll();
+
   allItem = allItem[0].dataValues;
   res.render("home/cart", {
     allItem,
+    vouchers,
   });
 });
 

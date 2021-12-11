@@ -52,7 +52,7 @@
                        
                         <td class="cart-quantity">
                             <p class="cart-qnt">
-                                <input value="" name="quantityOrdered" type="text">
+                                <input value="" class="quantityInput" name="quantityOrdered" type="text">
                                 <a href="#" class="cart-plus"><i class="fa fa-angle-up"></i></a>
                                 <a href="#" class="cart-minus"><i class="fa fa-angle-down"></i></a>
                             </p>
@@ -71,6 +71,13 @@
                 <input value="" id="valueTotal" name="total" type="hidden">
 
             </ul>
+            <div class="cart-coupon">
+              <select name="voucherCode" class="form-control show-tick">
+                    {{#each vouchers}}
+                    <option value="{{this.voucherCode}}">{{this.name}}</option>
+                    {{/each}}
+                </select>
+            </div>
             <div class="cart-submit">
                 <button class="cart-submit-btn">Checkout</button>
             </div>
@@ -98,7 +105,8 @@
     totalValue.innerText = "TOTAL: " + total
     valueTotal.value = total
 
- 
+    let qti = document.querySelectorAll(".quantityInput");
+
 
 </script>
 <!-- Main Content - end -->

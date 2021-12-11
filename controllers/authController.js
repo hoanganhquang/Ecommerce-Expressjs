@@ -31,8 +31,12 @@ exports.signUp = catchAsync(async (req, res, next) => {
   const password = await bcrypt.hash(req.body.password, 12);
 
   req.body.password = password;
-
-  const newUser = await User.create(req.body);
+  let newUser;
+  try {
+    newUser = await User.create(req.body);
+  } catch (error) {
+    return next(new Error("Email đã được đăng ký"));
+  }
 
   createSendToken(newUser, req, res);
 

@@ -28,7 +28,3 @@ exports.cataLog = catchAsync(async (req, res) => {
     getOneCata,
   });
 });
-
-exports.cart = (req, res) => {
-  res.render("home/cart");
-};

@@ -28,7 +28,7 @@
                                         <th>Mã số</th>
                                         <th data-breakpoints="sm xs">Ngày đặt</th>
                                         <th data-breakpoints="sm xs">Trạng thái</th>
-                                        <th data-breakpoints="sm xs">Bình luận</th>
+                                        <th data-breakpoints="sm xs">Tổng tiền</th>
                                         <th data-breakpoints="sm xs">Người đặt</th>
                                         <th data-breakpoints="sm xs">Voucher</th>
                                         <th data-breakpoints="sm xs md">Action</th>
@@ -40,9 +40,13 @@
                                         <td>{{this.orderNumber}}</td>
                                         <td>{{this.orderDate}}</td>
                                         <td>{{this.status}}</td>
-                                        <td><span class="text-muted">{{this.comments}}</span></td>
-                                        <td>Tab</td>
-                                        <td>{{this.voucher}}</td>
+                                        <td><span class="text-muted">{{this.total}}</span></td>
+                                        {{#with this.user}}
+                                   
+                                        <td>{{name}}</td>
+                                       
+                                        {{/with}}
+                                        <td>{{this.voucherCode}}</td>
                                         <td>
                                             <a href="" class="btn btn-default waves-effect waves-float btn-sm waves-green"><i class="zmdi zmdi-edit"></i></a>
                                             <a href="javascript:void(0);" class="btn btn-default waves-effect waves-float btn-sm waves-red"><i class="zmdi zmdi-delete"></i></a>
